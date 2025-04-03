@@ -1,9 +1,10 @@
 console.log("Dom Content has not Loaded");
 document.addEventListener("DOMContentLoaded", function() {
-        console.log("Dom Content Loaded");
+        
         if (window.aquaPixelLoaded) return; // Prevent script from running multiple times
         window.aquaPixelLoaded = true; // Set flag to ensure script runs only once
 
+        console.log("Dom Content Loaded");
         var advertiserName = window.location.hostname.replace("www.", ""); // Removes "www." if present
         var startTime = Date.now(); // Track time spent on page
         var trackingSent = JSON.parse(sessionStorage.getItem("trackingSent")) || {}; // Use sessionStorage for one-time execution
