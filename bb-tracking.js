@@ -19,7 +19,31 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-    
+        
+       var searchForm = document.querySelector('form[name="frm1"]');
+       if (searchForm) {
+        searchForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default submission (optional for tracking)
+
+            var searchInput = searchForm.querySelector('input[name="q"]');
+            var locationInput = searchForm.querySelector('input[name="location_value"]');
+
+            var searchQuery = searchInput ? searchInput.value.trim() : "";
+            var locationQuery = locationInput ? locationInput.value.trim() : "";
+
+            console.log("Search Submitted:", searchQuery, "Location:", locationQuery);
+
+            // Send tracking data (adjust tracking URL)
+            var trackingUrl = "https://example.com/track?search=" + encodeURIComponent(searchQuery) + "&location=" + encodeURIComponent(locationQuery);
+            navigator.sendBeacon(trackingUrl);
+
+            searchForm.submit(); // Allow form submission after tracking
+        });
+    } else {
+        console.warn("Search form not found.");
+    }
+        
+        
        document.addEventListener("submit", function(event) {
                 var searchForm = event.target.closest('form[action="/sitesearch"]'); // Adjust if needed
                 console.log(searchForm);
@@ -30,5 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
             });
+
+        
 
 });    
