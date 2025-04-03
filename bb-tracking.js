@@ -89,6 +89,7 @@
             });
 
             // **Determine Interest Based on Search Input**
+            console.log("Before we hit submit");
             document.addEventListener("submit", function(event) {
                 var searchForm = event.target.closest('form[action="/sitesearch"]'); // Adjust if needed
                 console.log(searchForm);
