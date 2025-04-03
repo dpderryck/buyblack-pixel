@@ -1,4 +1,3 @@
-<!-- Aqua Pixel Code (Fix for Ad Refresh Triggering Multiple Requests) -->
 <script>
     (function() {
         if (window.aquaPixelLoaded) return; // Prevent script from running multiple times
@@ -92,6 +91,7 @@
             // **Determine Interest Based on Search Input**
             document.addEventListener("submit", function(event) {
                 var searchForm = event.target.closest('form[action="/sitesearch"]'); // Adjust if needed
+                console.log(searchForm);
                 if (searchForm) {
                     var searchInput = searchForm.querySelector('input[name="q"]');
                     if (searchInput && searchInput.value.trim()) {
@@ -103,5 +103,3 @@
 
     })();
 </script>
-
-<!-- End Aqua Pixel Code -->
