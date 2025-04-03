@@ -1,4 +1,4 @@
-(function() {
+document.addEventListener("DOMContentLoaded", function() {
         if (window.aquaPixelLoaded) return; // Prevent script from running multiple times
         window.aquaPixelLoaded = true; // Set flag to ensure script runs only once
 
@@ -31,6 +31,4 @@
                 }
             });
 
-})();
-    
-            
+});    
