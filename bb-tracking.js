@@ -4,12 +4,13 @@ document.addEventListener("DOMContentLoaded", function() {
         if (window.aquaPixelLoaded) return; // Prevent script from running multiple times
         window.aquaPixelLoaded = true; // Set flag to ensure script runs only once
 
-        console.log("Dom Content Loaded");
+        
         var advertiserName = window.location.hostname.replace("www.", ""); // Removes "www." if present
         var startTime = Date.now(); // Track time spent on page
         var trackingSent = JSON.parse(sessionStorage.getItem("trackingSent")) || {}; // Use sessionStorage for one-time execution
 
         function sendTrackingData(eventName, params) {
+                console.log("Inside SendTracking Data ");
             if (!trackingSent[eventName]) { // Prevent duplicate requests using sessionStorage
                 trackingSent[eventName] = true;
                 sessionStorage.setItem("trackingSent", JSON.stringify(trackingSent));
@@ -25,7 +26,11 @@ document.addEventListener("DOMContentLoaded", function() {
         
        var searchForm = document.querySelector('form[name="frm1"]');
        if (searchForm) {
+                                               console.log("Inside searchform ");
+
         searchForm.addEventListener("submit", function (event) {
+                                console.log("Inside submit event listner ");
+
             event.preventDefault(); // Prevent default submission (optional for tracking)
 
             var searchInput = searchForm.querySelector('input[name="q"]');
