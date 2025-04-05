@@ -1,8 +1,8 @@
 console.log("Dom Content has not Loaded");
 document.addEventListener("DOMContentLoaded", function() {
         console.log("Dom Content Loaded");
-        if (window.aquaPixelLoaded) return; // Prevent script from running multiple times
-        window.aquaPixelLoaded = true; // Set flag to ensure script runs only once
+       // if (window.aquaPixelLoaded) return; // Prevent script from running multiple times
+       // window.aquaPixelLoaded = true; // Set flag to ensure script runs only once
 
         
         var advertiserName = window.location.hostname.replace("www.", ""); // Removes "www." if present
