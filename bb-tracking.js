@@ -24,29 +24,17 @@ document.addEventListener("DOMContentLoaded", function() {
     var searchForm = document.querySelector('form[name="frm1"]');
     if (searchForm) {
         console.log("Inside searchform");
+        alert("outside event listner");
 
         searchForm.addEventListener("submit", function(event) {
             event.preventDefault(); // Prevent default form submission (optional for tracking)
             console.log("Inside submit event listener");
-
+             
             var searchInput = searchForm.querySelector('input[name="q"]');
             var locationInput = searchForm.querySelector('input[name="location_value"]');
+            
 
-            var searchQuery = searchInput ? searchInput.value.trim() : "";
-            var locationQuery = locationInput ? locationInput.value.trim() : "";
-
-            console.log("Search Submitted:", searchQuery, "Location:", locationQuery);
-
-            // Send tracking data (adjust tracking URL)
-            var trackingUrl = "https://servedby.aqua-adserver.com/fc.php?script=apRetargeting:hv-api&key=xBepEwdYAsuV" + encodeURIComponent(searchQuery) + "&location=" + encodeURIComponent(locationQuery);
-            navigator.sendBeacon(trackingUrl);
-            // sendTrackingData("search_interest", "&:search_interest=" + encodeURIComponent(searchQuery));
-                
-            // Delay form submission to ensure tracking is sent before submitting
-            setTimeout(function() {
-                console.log("Form is being submitted...");
-                searchForm.submit(); // Allow form submission after tracking
-            }, 1000); // Delay by 1 second (adjust if necessary)
+            
         });
     } else {
         console.warn("Search form not found.");
