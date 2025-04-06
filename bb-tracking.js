@@ -24,6 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (searchForm) {
         console.log("Inside searchform");
 
+        const button = document.querySelector('input[type="submit"]');
+if (button) {
+    button.addEventListener("click", function () {
+        console.log("Submit button clicked");
+    });
+}
+
         searchForm.addEventListener("submit", function (event) {
             event.preventDefault(); 
             alert("Inside submit event listener");
