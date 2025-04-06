@@ -24,15 +24,23 @@ document.addEventListener("DOMContentLoaded", function() {
     var searchForm = document.querySelector('form[name="frm1"]');
     if (searchForm) {
         console.log("Inside searchform");
-        alert("outside event listner");
 
         searchForm.addEventListener("submit", function(event) {
             event.preventDefault(); // Prevent default form submission (optional for tracking)
-            console.log("Inside submit event listener");
+            alert("Inside submit event listener");
              
             var searchInput = searchForm.querySelector('input[name="q"]');
             var locationInput = searchForm.querySelector('input[name="location_value"]');
             
+
+            var trackingUrl = "https://example.com/track?search=" + encodeURIComponent(searchQuery) + "&location=" + encodeURIComponent(locationQuery);
+            navigator.sendBeacon(trackingUrl);
+
+            // Delay form submission to ensure tracking is sent before submitting
+            setTimeout(function() {
+                console.log("Form is being submitted...");
+                searchForm.submit(); // Allow form submission after tracking
+            }, 5000); // Delay by 1 second (adjust if necessary)        
 
             
         });
