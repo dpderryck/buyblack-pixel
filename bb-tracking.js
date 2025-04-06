@@ -27,7 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const button = document.querySelector('input[type="submit"]');
 if (button) {
     button.addEventListener("click", function () {
-        console.log("Submit button clicked");
+        var searchInput = searchForm.querySelector('input[name="q"]');
+            var locationInput = searchForm.querySelector('input[name="location_value"]');
+
+            var searchQuery = searchInput ? searchInput.value.trim() : "";
+            var locationQuery = locationInput ? locationInput.value.trim() : "";
+
+            console.log("Search:", searchQuery);
+            console.log("Location:", locationQuery);
+        
     });
 }
 
