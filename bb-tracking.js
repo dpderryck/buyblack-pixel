@@ -25,45 +25,24 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Inside searchform");
 
         const button = document.querySelector('input[type="submit"]');
-if (button) {
-    button.addEventListener("click", function () {
-        var searchInput = searchForm.querySelector('input[name="q"]');
-            var locationInput = searchForm.querySelector('input[name="location_value"]');
-
-            var searchQuery = searchInput ? searchInput.value.trim() : "";
-            var locationQuery = locationInput ? locationInput.value.trim() : "";
-
-            console.log("Search:", searchQuery);
-            console.log("Location:", locationQuery);
+        if (button) {
+            button.addEventListener("click", function () {
+                var searchInput = searchForm.querySelector('input[name="q"]');
+                    var locationInput = searchForm.querySelector('input[name="location_value"]');
         
-    });
-}
+                    var searchQuery = searchInput ? searchInput.value.trim() : "";
+                    var locationQuery = locationInput ? locationInput.value.trim() : "";
 
-        searchForm.addEventListener("submit", function (event) {
-            event.preventDefault(); 
-            alert("Inside submit event listener");
-
-            var searchInput = searchForm.querySelector('input[name="q"]');
-            var locationInput = searchForm.querySelector('input[name="location_value"]');
-
-            var searchQuery = searchInput ? searchInput.value.trim() : "";
-            var locationQuery = locationInput ? locationInput.value.trim() : "";
-
-            console.log("Search:", searchQuery);
-            console.log("Location:", locationQuery);
-
-            var trackingUrl = "https://example.com/track?search=" + encodeURIComponent(searchQuery) +
-                "&location=" + encodeURIComponent(locationQuery);
-            navigator.sendBeacon(trackingUrl);
-
-            // Optional: also send through your sendTrackingData function
-            // sendTrackingData("search_submit", "&search=" + searchQuery + "&location=" + locationQuery);
-
-            setTimeout(function () {
-                console.log("Form is being submitted...");
-                searchForm.submit();
-            }, 5000); // 1 second delay
-        });
+                    var searchInput = searchForm.querySelector('input[name="q"]');
+                    if (searchInput && searchQuery) {
+                        sendTrackingData("search_interest", "&:search_interest=" + encodeURIComponent(searchQuery));
+                    }
+        
+                    console.log("Search:", searchQuery);
+                    console.log("Location:", locationQuery);
+                
+            });
+        }        
     } else {
         console.warn("Search form not found.");
     }
