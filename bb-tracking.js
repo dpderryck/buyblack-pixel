@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                                console.log("Inside searchform ");
 
         searchForm.addEventListener("submit", function (event) {
+                                 alert("Inside event listener");
                                 console.log("Inside submit event listner ");
 
             event.preventDefault(); // Prevent default submission (optional for tracking)
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
         
         
-       document.addEventListener("submit", function(event) {
+       /*document.addEventListener("submit", function(event) {
                 var searchForm = event.target.closest('form[action="/sitesearch"]'); // Adjust if needed
                 console.log(searchForm);
                 if (searchForm) {
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         sendTrackingData("search_interest", "&:search_interest=" + encodeURIComponent(searchInput.value.trim()));
                     }
                 }
-            });
+            });*/
 
         
 
