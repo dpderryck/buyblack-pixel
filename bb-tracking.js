@@ -2,8 +2,9 @@ console.log("Dom Content has not Loaded");
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Dom Content Loaded");
-
-    var advertiserName = window.location.hostname.replace("www.", "");
+    
+    var advertiserName = window.location.hostname.replace("www.", ""); 
+     var startTime = Date.now(); // Track time spent on page
     var trackingSent = JSON.parse(sessionStorage.getItem("trackingSent")) || {};
 
     function sendTrackingData(eventName, params) {
@@ -19,6 +20,34 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.appendChild(trackingPixel);
         }
     }
+
+    function getBusinessCategory() {
+            // Try to get category from breadcrumbs
+            var categoryName = "";
+            var breadcrumbLinks = document.querySelectorAll('.breadcrumb li a');
+
+            if (breadcrumbLinks.length > 1) {
+                categoryName = breadcrumbLinks[breadcrumbLinks.length - 2].innerText.trim(); // Second-to-last breadcrumb
+            }
+
+            // If breadcrumbs didn't work, try getting from meta tags
+            if (!categoryName) {
+                var metaCategory = document.querySelector('meta[property="business:category"], meta[name="business_category"]');
+                if (metaCategory) {
+                    categoryName = metaCategory.getAttribute("content").trim();
+                }
+            }
+
+            // If still no category, try extracting from URL path (e.g., /home-services/)
+            if (!categoryName) {
+                var pathSegments = window.location.pathname.split("/").filter(Boolean); // Get non-empty URL segments
+                if (pathSegments.length >= 3) { // Example path: /united-states/burke/home-services/affinity-contracting-llc
+                    categoryName = pathSegments[pathSegments.length - 2].replace(/-/g, " "); // Get second-to-last URL segment
+                }
+            }
+
+            return categoryName;
+        }
 
     var searchForm = document.querySelector('form[name="frm1"]');
     if (searchForm) {
