@@ -1,7 +1,7 @@
-console.log("Dom Content has not Loaded");
+//console.log("Dom Content has not Loaded");
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Dom Content Loaded");
+    //console.log("Dom Content Loaded");
     
     var advertiserName = window.location.hostname.replace("www.", ""); 
      var startTime = Date.now(); // Track time spent on page
@@ -47,6 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             return categoryName;
+        }
+
+    // **Ensure script only runs once per full page load**
+        function isAdRefresh() {
+            return performance.getEntriesByType("navigation")[0]?.type !== "reload" && document.visibilityState === "visible";
         }
 
     var searchForm = document.querySelector('form[name="frm1"]');
