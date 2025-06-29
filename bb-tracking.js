@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     var advertiserName = window.location.hostname.replace("www.", ""); 
      var startTime = Date.now(); // Track time spent on page
-    var trackingSent = JSON.parse(sessionStorage.getItem("trackingSent")) || {};
+     // var trackingSent = JSON.parse(sessionStorage.getItem("trackingSent")) || {};
+      var trackingSent = {};
 
     function sendTrackingData(eventName, params) {
         console.log("Inside SendTracking Data");
