@@ -17,7 +17,7 @@
   function fireRetargetingPixel(category) {
     const encodedCategory = encodeURIComponent(category);
     const pixel = new Image();
-    pixel.src = `http://servedby.aqua-adserver.com/fc.php?script=apRetargeting:hv-api&key=YOUR_KEY&:ad_interest=${encodedCategory}`;
+    pixel.src = `http://servedby.aqua-adserver.com/fc.php?script=apRetargeting:hv-api&key=xBepEwdYAsuV&:ad_interest=${encodedCategory}`;
     document.body.appendChild(pixel);
   }
 
