@@ -1,84 +1,31 @@
-//console.log("Dom Content has not Loaded");
-
 document.addEventListener("DOMContentLoaded", function () {
-    //console.log("Dom Content Loaded");
-    
-    var advertiserName = window.location.hostname.replace("www.", ""); 
-     var startTime = Date.now(); // Track time spent on page
-     // var trackingSent = JSON.parse(sessionStorage.getItem("trackingSent")) || {};
-      var trackingSent = {};
+   function setInterest(category) {
+  const days = 10; // Expiry window (customize 7–14 days)
+  const expires = new Date();
+  expires.setTime(expires.getTime() + (days*24*60*60*1000));
+  
+  document.cookie = `ad_interest=${encodeURIComponent(category)}; path=/; expires=${expires.toUTCString()}`;
+}
 
-    function sendTrackingData(eventName, params) {
-        console.log("Inside SendTracking Data");
-        if (!trackingSent[eventName]) {
-            trackingSent[eventName] = true;
-            sessionStorage.setItem("trackingSent", JSON.stringify(trackingSent));
+function getInterest() {
+  const match = document.cookie.match(/(?:^|; )ad_interest=([^;]*)/);
+  return match ? decodeURIComponent(match[1]) : null;
+}
 
-            var trackingPixel = new Image();
-            trackingPixel.src = "https://servedby.aqua-adserver.com/fc.php?script=apRetargeting:hv-api&key=xBepEwdYAsuV" +
-                "&:visited_advertiser=1&:visitor=" + advertiserName + params;
-            trackingPixel.style.display = "none";
-            document.body.appendChild(trackingPixel);
-        }
-    }
+// Usage example:
+const url = new URL(window.location.href);
+const category = url.searchParams.get("category[]");
 
-    function getBusinessCategory() {
-            // Try to get category from breadcrumbs
-            var categoryName = "";
-            var breadcrumbLinks = document.querySelectorAll('.breadcrumb li a');
+if (category) {
+  setInterest(category);
+}
 
-            if (breadcrumbLinks.length > 1) {
-                categoryName = breadcrumbLinks[breadcrumbLinks.length - 2].innerText.trim(); // Second-to-last breadcrumb
-            }
+// Now anywhere on the site:
+const interest = getInterest();
+if (interest) {
+  // Serve ads for `interest`
+} else {
+  // Serve general/geo ads
+}
 
-            // If breadcrumbs didn't work, try getting from meta tags
-            if (!categoryName) {
-                var metaCategory = document.querySelector('meta[property="business:category"], meta[name="business_category"]');
-                if (metaCategory) {
-                    categoryName = metaCategory.getAttribute("content").trim();
-                }
-            }
-
-            // If still no category, try extracting from URL path (e.g., /home-services/)
-            if (!categoryName) {
-                var pathSegments = window.location.pathname.split("/").filter(Boolean); // Get non-empty URL segments
-                if (pathSegments.length >= 3) { // Example path: /united-states/burke/home-services/affinity-contracting-llc
-                    categoryName = pathSegments[pathSegments.length - 2].replace(/-/g, " "); // Get second-to-last URL segment
-                }
-            }
-
-            return categoryName;
-        }
-
-    // **Ensure script only runs once per full page load**
-        function isAdRefresh() {
-            return performance.getEntriesByType("navigation")[0]?.type !== "reload" && document.visibilityState === "visible";
-        }
-
-    var searchForm = document.querySelector('form[name="frm1"]');
-    if (searchForm) {
-        console.log("Inside searchform");
-
-        const button = document.querySelector('input[type="submit"]');
-        if (button) {
-            button.addEventListener("click", function () {
-                var searchInput = searchForm.querySelector('input[name="q"]');
-                    var locationInput = searchForm.querySelector('input[name="location_value"]');
-        
-                    var searchQuery = searchInput ? searchInput.value.trim() : "";
-                    var locationQuery = locationInput ? locationInput.value.trim() : "";
-
-                    var searchInput = searchForm.querySelector('input[name="q"]');
-                    if (searchInput && searchQuery) {
-                        sendTrackingData("search_interest", "&:search_interest=" + encodeURIComponent(searchQuery));
-                    }
-        
-                    console.log("Search:", searchQuery);
-                    console.log("Location:", locationQuery);
-                
-            });
-        }        
-    } else {
-        console.warn("Search form not found.");
-    }
 });
